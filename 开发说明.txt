@@ -1,53 +1,65 @@
 一、github上fork项目后与原项目保持同步的操作说明
 
-假设来源为 `https://github.com/tongpi/product-ei.git`
-fork 项目为  `https://github.com/wso2/product-ei.git`
+    假设来源为 `https://github.com/tongpi/product-ei.git`
+    fork 项目为  `https://github.com/wso2/product-ei.git`
 
-1. 检出自己在github上fork别人的分支到目录下 
-    git clone https://github.com/tongpi/product-ei.git
-2. 进到 _project 目录下，然后增加远程分支(fork的分支)，名为 update_stream（名字任意）到本地
-     git remote add update_stream https://github.com/wso2/product-ei.git
-     
-3. 运行命令：`git remote -v`, 会发现多出来了一个update_stream的远程分支
-    git remote -v
-4. 然后把远程原始分支 update_stream 的代码拉到本地 
-    git fetch update_stream 
-5. 合并对方远程原始分支 update_stream 的代码
-    git merge update_stream/master
-6. 最后把最新的代码推送到你的github上
-    git push origin master
-7. 如果需要给update_stream发送Pull Request
-    打开 `https://github.com/tongpi/product-ei.git`  
-    点击Pull Request -> 点击New Pull Request -> 输入Title和功能说明 -> 点击Send pull request
+    1. 检出自己在github上fork别人的分支到目录下 
+        git clone https://github.com/tongpi/product-ei.git
+    2. 进到 _project 目录下，然后增加远程分支(fork的分支)，名为 update_stream（名字任意）到本地
+         git remote add update_stream https://github.com/wso2/product-ei.git
+         
+    3. 运行命令：`git remote -v`, 会发现多出来了一个update_stream的远程分支
+        git remote -v
+    4. 然后把远程原始分支 update_stream 的代码拉到本地 
+        git fetch update_stream 
+    5. 合并对方远程原始分支 update_stream 的代码
+        git merge update_stream/master
+    6. 最后把最新的代码推送到你的github上
+        git push origin master
+    7. 如果需要给update_stream发送Pull Request
+        打开 `https://github.com/tongpi/product-ei.git`  
+        点击Pull Request -> 点击New Pull Request -> 输入Title和功能说明 -> 点击Send pull request
 
 二、Docker下安装ei
 
- apt-get install apt-transport-https ca-certificates  curl  software-properties-common
- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
- add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
- apt-get update
+     apt-get install apt-transport-https ca-certificates  curl  software-properties-common
+     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
+     apt-get update
 
+     pip install docker-compose  --upgrade
 
-  pip install docker-compose  --upgrade
-
-  三、从源码构建
+三、从源码构建
      1、缺失org.elasticsearch.plugin:x-pack-api:5.4.3依赖包的问题
       为了build wso2 ei,我在192.168.200.69的nexus的Releases库中手动安装了x-pack-api-5.4.3.jar，这个jar包是从https://mvnrepository.com/artifact/org.elasticsearch.plugin/x-pack-api/5.4.3下载的
      2、mvn install -DskipTests -DskipIntegrationTests -U
-
-
 四、已汉化的组件
-carbon-kernel
-carbon-commons
-carbon-data
-carbon-mediation
-carbon-metrics
-carbon-multitenancy
-carbon-identity-framework
-carbon-event-processing
-carbon-analytics-common
-carbon-deployment
-carbon-analytics------------------直接从1.3.31升级到了2.0.444版本，这个版本我在本地化wso2-sp时做了深度汉化，但不知道直接升级会不会带来问题。
-carbon-dashboards-----------------这个版本的汉化需要进一步复查
+    carbon-kernel
+    carbon-commons
+    carbon-data
+    carbon-mediation
+    carbon-metrics
+    carbon-multitenancy
+    carbon-identity-framework
+    carbon-event-processing
+    carbon-analytics-common
+    carbon-deployment
+    carbon-analytics------------------直接从1.3.31升级到了2.0.444版本，这个版本我在本地化wso2-sp时做了深度汉化，但不知道直接升级会不会带来问题。
+    carbon-dashboards-----------------这个版本的汉化需要进一步复查
+五、界面本地化
+1、修改logo   
+    ei:product-ei\components\org.wso2.ei.styles\src\main\resources\web\styles\images\esb-header-logo.png
+    bps:product-ei\components\org.wso2.ei.business-process.styles\src\main\resources\web\styles\images\bps-header-logo.png
+    analytics:product-ei\components\org.wso2.ei.analytics.styles\src\main\resources\web\styles\images\eianalytics-header-logo.png
+    bpmn-explorer:carbon-business-process\components\bpmn\bpmn-explorer-web\src\web\images\logo-wso2.png
+    humantask-explorer:carbon-business-process\components\humantask\humantask-explorer-web\src\web\images\logo-wso2.png
+    2、修改ei控制台页面标题文字：product-ei\components\org.wso2.ei.styles\src\main\resources\META-INF\product.xml的webAdminConsoleTitle属性
+3、修改ei控制台等几个子系统首页最上面显示的系统名称，只需修改以下几个文件中的Name元素即可
+    product-ei\distribution\src\analytics\conf\carbon.xml
+    product-ei\distribution\src\broker\conf\carbon.xml
+    product-ei\distribution\src\business-process\conf\carbon.xml
+    product-ei\distribution\src\conf\carbon.xml
+    product-ei\distribution\src\micro-integrator\conf\carbon.xml
 
-管理
+
+
