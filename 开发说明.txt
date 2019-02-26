@@ -32,7 +32,7 @@
 三、从源码构建
      1、缺失org.elasticsearch.plugin:x-pack-api:5.4.3依赖包的问题
       为了build wso2 ei,我在192.168.200.69的nexus的Releases库中手动安装了x-pack-api-5.4.3.jar，这个jar包是从https://mvnrepository.com/artifact/org.elasticsearch.plugin/x-pack-api/5.4.3下载的
-     2、mvn install -DskipTests -DskipIntegrationTests -U
+     2、mvn install -DskipTests -DskipIntegrationTests -Dcheckstyle.skip -U
 四、已汉化的组件
     carbon-kernel
     carbon-commons
